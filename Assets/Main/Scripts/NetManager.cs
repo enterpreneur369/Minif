@@ -9,11 +9,31 @@ public class NetManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.autoJoinLobby = true;
         PhotonNetwork.ConnectUsingSettings("Alpha 0.1");
     }
 
-    void Upate()
+    void OnJoinedLobby()
+    {
+        PhotonNetwork.JoinRoom("Room_1");
+    }
+
+    void OnJoinedRoom()
+    {
+        PhotonNetwork.Instantiate(
+            "Player",
+            new Vector3(0, 1, 0),
+            Quaternion.identity,
+            0
+        );
+    }
+
+    void OnPhotonJoinRoomFailed()
+    {
+        Debug.Log("OnJoinedRoomFailed");
+        PhotonNetwork.CreateRoom("Room_1");
+    }
+
+    void Update()
     {
         this.connectionState.text = 
             PhotonNetwork.connectionStateDetailed
