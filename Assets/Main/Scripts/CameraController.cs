@@ -39,12 +39,14 @@ public class CameraController : MonoBehaviour
 
         //Debug.DrawLine(this.camRay.origin, this.mousePoint);
 
-        this.playerToMouse = this.player.transform.position - 
-            this.mousePoint;
+        this.playerToMouse = this.mousePoint - 
+            this.player.transform.position;
         this.playerToMouse /= 4;
 
+        this.player.lookDirection = this.playerToMouse;
+
         this.transform.position = 
-            (this.player.transform.position -
+            (this.player.transform.position +
             this.playerToMouse) + this.offset;
         this.transform.rotation = Quaternion
             .LookRotation(-this.offset);
